@@ -33,3 +33,28 @@ function toggleMenu() {
   const menu = document.querySelector('.menu');
   menu.classList.toggle('show');
 }
+
+window.addEventListener('scroll', function() {
+    // Selecione o botão do WhatsApp e o rodapé
+    // ! IMPORTANTE: O seletor do botão agora é '.zap'
+    var botaoWhatsapp = document.querySelector('.zap'); // MUDADO AQUI
+    var footer = document.querySelector('footer');      // Mantenha 'footer' se seu rodapé for a tag <footer>
+                                                        // ou ajuste se ele tiver uma classe/ID específico.
+
+    if (!botaoWhatsapp || !footer) {
+        // console.warn("Elemento do botão WhatsApp (classe 'zap') ou do rodapé não encontrado.");
+        return;
+    }
+
+    var footerRect = footer.getBoundingClientRect();
+    var viewportHeight = window.innerHeight;
+    var espacamentoDoRodape = 20; // Ajuste este valor em pixels conforme sua preferência
+    var posicaoOriginalBottom = '20px'; // Deve ser o mesmo valor do CSS para a classe '.zap'
+
+    if (footerRect.top < viewportHeight && footerRect.bottom >= 0) {
+        var novoBottom = (viewportHeight - footerRect.top) + espacamentoDoRodape;
+        botaoWhatsapp.style.bottom = novoBottom + 'px';
+    } else {
+        botaoWhatsapp.style.bottom = posicaoOriginalBottom;
+    }
+});
